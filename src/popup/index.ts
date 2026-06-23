@@ -1,4 +1,5 @@
 import type { Config, IStorage } from "../types/config";
+import { loadStorageConfig } from "../managedConfig";
 
 const config: Config = {
     enable: true,
@@ -8,7 +9,7 @@ const config: Config = {
 
 window.onload = async () => {
     // load config
-    const data = (await chrome.storage.local.get(null)) as IStorage;
+    const data = await loadStorageConfig(false);
 
     if (typeof data.isEnable === "boolean") {
         config.enable = data.isEnable;

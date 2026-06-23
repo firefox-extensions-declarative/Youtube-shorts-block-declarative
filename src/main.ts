@@ -8,6 +8,7 @@ import {
     querySelectorAllPromise,
     querySelectorPromise,
 } from "./util/util";
+import { loadStorageConfig } from "./managedConfig";
 
 const config: Config = {
     enable: true,
@@ -94,7 +95,7 @@ class Extension {
     }
 
     public async loadConfig() {
-        const storage = (await chrome.storage.local.get(null)) as IStorage;
+        const storage = await loadStorageConfig(true);
 
         if (typeof storage.isEnable === "boolean") {
             config.enable = storage.isEnable;
